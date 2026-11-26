@@ -1,0 +1,6 @@
+{
+  "name": "Bom de Preço - HortiFruti & Cia",
+  "description": "Hortifruti climatizado em Guarapari, ES. Frutas, legumes, folhas frescas, plantas e ofertas especiais de quarta e sábado com pedido rápido no WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,249 @@
+@import "tailwindcss";
+
+:root {
+  --color-cream: #F7F6F0;
+  --color-cream-soft: #FFFDF7;
+  --color-purple: #6B2D7B;
+  --color-purple-dark: #3B1247;
+  --color-purple-deep: #1A0A20;
+  --color-green: #4E8C18;
+  --color-green-lime: #7CC22E;
+  --color-red: #D92B2B;
+  --color-yellow: #FFC21A;
+  --color-black: #161218;
+  --color-white: #FFFFFF;
+  --font-display: "Anton", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 4px 12px rgba(59, 18, 71, 0.08);
+  --shadow-md: 0 12px 32px rgba(59, 18, 71, 0.13);
+  --shadow-lg: 0 24px 56px rgba(26, 10, 32, 0.24);
+  --container-width: 1240px;
+  --ease-emil: cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-fast: 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-normal: 240ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    color: var(--color-black);
+    background-color: var(--color-cream);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    overflow-x: hidden;
+    background-color: var(--color-cream);
+    color: var(--color-black);
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.container-site {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-site {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-site {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-purple) 0%,
+    var(--color-purple-dark) 52%,
+    var(--color-purple-deep) 100%
+  );
+}
+
+/* Tactile card lift + pointer-tracked warm specular spotlight */
+.card-produce {
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.card-produce:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.spotlight-card::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(
+    280px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(255, 194, 26, 0.2),
+    rgba(124, 194, 46, 0.08) 42%,
+    transparent 70%
+  );
+  transition: opacity 220ms var(--ease-emil);
+  z-index: 1;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* Tactile button press & specular light sheen (Emil Kowalski micro-interaction craft) */
+.btn-lift {
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+}
+
+.btn-lift:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn-lift:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 55%;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 48%,
+    rgba(255, 255, 255, 0.08) 60%,
+    transparent 100%
+  );
+  transform: translateX(-160%) skewX(-20deg);
+  pointer-events: none;
+}
+
+.btn-shine:hover::after {
+  animation: specular-sweep 680ms var(--ease-emil) forwards;
+}
+
+.btn-shine-ambient::after {
+  animation: specular-ambient 4.6s var(--ease-emil) infinite;
+}
+
+@keyframes specular-sweep {
+  0% {
+    transform: translateX(-160%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(300%) skewX(-20deg);
+  }
+}
+
+@keyframes specular-ambient {
+  0%, 72% {
+    transform: translateX(-160%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(300%) skewX(-20deg);
+  }
+}
+
+/* Shimmering golden headline text */
+.text-shimmer-gold {
+  background: linear-gradient(
+    105deg,
+    var(--color-yellow) 0%,
+    var(--color-yellow) 38%,
+    #FFF8D6 50%,
+    var(--color-yellow) 62%,
+    var(--color-yellow) 100%
+  );
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gold-text-shimmer 5.4s ease-in-out infinite;
+}
+
+@keyframes gold-text-shimmer {
+  0% {
+    background-position: 120% 0;
+  }
+  55%, 100% {
+    background-position: -120% 0;
+  }
+}
+
+/* Seamless GPU-composited kinetic marquee */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-scroll 42s linear infinite;
+}
+
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .card-produce,
+  .btn-lift,
+  .spotlight-card::before {
+    transition: none;
+  }
+  .card-produce:hover,
+  .btn-lift:hover,
+  .btn-lift:active {
+    transform: none;
+  }
+  .btn-shine::after,
+  .btn-shine-ambient::after,
+  .text-shimmer-gold,
+  .marquee-track {
+    animation: none;
+  }
+  .text-shimmer-gold {
+    background: none;
+    color: var(--color-yellow);
+  }
+}
