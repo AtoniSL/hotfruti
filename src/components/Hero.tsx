@@ -5,7 +5,6 @@ import { EDITORIAL_IMAGES, STORE_INFO } from '../data/catalog';
 import {
   EMIL_EASE,
   KineticWordCycler,
-  ProduceMarquee,
 } from './MotionPrimitives';
 
 const HERO_KINETIC_WORDS = [
@@ -88,7 +87,7 @@ export const Hero: React.FC = () => {
                 href="#catalogo"
                 className="btn-lift btn-shine btn-shine-ambient inline-flex items-center justify-center gap-2 min-h-[50px] px-8 bg-[var(--color-yellow)] text-[var(--color-black)] font-bold text-[15.5px] rounded-[var(--radius-md)] shadow-lg hover:brightness-95 whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-white)]"
               >
-                <span>Explorar opções</span>
+                <span>Ver nossos produtos</span>
                 <ArrowDown className="w-4 h-4 shrink-0" aria-hidden="true" />
               </a>
             </motion.div>
@@ -108,8 +107,6 @@ export const Hero: React.FC = () => {
           </div>
         </div>
       </section>
-
-      <ProduceMarquee />
     </>
   );
 };

@@ -5,18 +5,21 @@ import { BrandLogo } from './BrandLogo';
 import { EMIL_EASE, ScrollProgressBar } from './MotionPrimitives';
 
 interface HeaderProps {
-  itemCount: number;
+  itemCount?: number;
   onOpenOrderDrawer: () => void;
 }
 
 const NAV_LINKS = [
-  { href: '#catalogo', label: 'Opções' },
+  { href: '#catalogo', label: 'Produtos' },
   { href: '#delivery', label: 'Delivery' },
   { href: '#quem-somos', label: 'Quem Somos' },
   { href: '#contato', label: 'Contato' },
 ];
 
-export const Header: React.FC<HeaderProps> = ({ itemCount, onOpenOrderDrawer }) => {
+export const Header: React.FC<HeaderProps> = ({
+  itemCount = 0,
+  onOpenOrderDrawer,
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (

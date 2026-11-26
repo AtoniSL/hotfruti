@@ -87,13 +87,13 @@ export const ABOUT_DIFFERENTIALS = [
 export const DELIVERY_STEPS = [
   {
     step: '01',
-    title: 'Escolha suas opções',
-    description: 'Navegue pelas frutas, legumes, folhas e combos fresquinhos.',
+    title: 'Confira nossa variedade',
+    description: 'Veja as frutas da estação, legumes selecionados, folhas e flores.',
   },
   {
     step: '02',
-    title: 'Envie no WhatsApp',
-    description: 'Sua lista chega organizada para nossa equipe separar tudo no ponto.',
+    title: 'Chame no WhatsApp',
+    description: 'Conte o que você precisa hoje para nossa equipe separar tudo no ponto.',
   },
   {
     step: '03',

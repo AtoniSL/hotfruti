@@ -38,10 +38,10 @@ export const DeliverySection: React.FC = () => {
             </h2>
 
             <p className="mt-4 text-[16px] leading-[1.7] text-[var(--color-black)]/80">
-              Não sacrifique a qualidade pela conveniência. Monte sua lista de
-              frutas, legumes e verduras aqui mesmo e envie no WhatsApp: nossa
-              equipe escolhe tudo fresquinho no ponto certo para você retirar na
-              loja ou receber em casa.
+              Não sacrifique a qualidade pela conveniência. Inspire-se na nossa
+              vitrine de frutas, legumes e verduras e fale direto com a gente no
+              WhatsApp: nossa equipe escolhe tudo fresquinho no ponto certo para
+              você retirar na loja ou receber em casa.
             </p>
 
             <ol className="mt-7 space-y-4">

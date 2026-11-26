@@ -26,16 +26,16 @@ import { EMIL_EASE } from './MotionPrimitives';
 interface WhatsAppOrderDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  items: OrderItem[];
-  onUpdateQuantity: (productId: string, delta: number) => void;
-  onRemoveItem: (productId: string) => void;
-  onClearOrder: () => void;
+  items?: OrderItem[];
+  onUpdateQuantity?: (productId: string, delta: number) => void;
+  onRemoveItem?: (productId: string) => void;
+  onClearOrder?: () => void;
 }
 
 export const WhatsAppOrderDrawer: React.FC<WhatsAppOrderDrawerProps> = ({
   isOpen,
   onClose,
-  items,
+  items = [],
   onUpdateQuantity,
   onRemoveItem,
   onClearOrder,
@@ -132,7 +132,7 @@ export const WhatsAppOrderDrawer: React.FC<WhatsAppOrderDrawerProps> = ({
               id="order-drawer-title"
               className="font-display uppercase text-[1.45rem] leading-none tracking-[0.03em]"
             >
-              Sua Lista no WhatsApp
+              Pedir pelo WhatsApp
             </h2>
             <p className="text-[12.5px] text-[var(--color-cream)]/80 mt-1">
               {STORE_INFO.brandName} · {STORE_INFO.city}
@@ -141,7 +141,7 @@ export const WhatsAppOrderDrawer: React.FC<WhatsAppOrderDrawerProps> = ({
           <button
             type="button"
             onClick={onClose}
-            aria-label="Fechar resumo do pedido"
+            aria-label="Fechar atendimento do WhatsApp"
             className="min-w-[44px] min-h-[44px] rounded-[var(--radius-md)] inline-flex items-center justify-center text-[var(--color-white)] hover:bg-white/10 cursor-pointer focus-visible:outline-2 focus-visible:outline-[var(--color-yellow)]"
           >
             <X className="w-5 h-5" aria-hidden="true" />
@@ -150,34 +150,33 @@ export const WhatsAppOrderDrawer: React.FC<WhatsAppOrderDrawerProps> = ({
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto p-5 space-y-6">
-          {/* Selected Items */}
-          <div>
-            <div className="flex items-center justify-between gap-2 mb-3">
-              <h3 className="text-[13px] font-bold uppercase tracking-[0.08em] text-[var(--color-purple-dark)]">
-                Opções selecionadas
-              </h3>
-              {items.length > 0 && (
-                <button
-                  type="button"
-                  onClick={onClearOrder}
-                  className="text-[12.5px] font-semibold text-[var(--color-red)] hover:underline cursor-pointer min-h-[36px] px-1"
-                >
-                  Limpar lista
-                </button>
-              )}
+          {items.length === 0 ? (
+            <div className="rounded-[var(--radius-md)] bg-[var(--color-cream)] border border-[var(--color-purple)]/12 p-4">
+              <p className="text-[14px] font-bold text-[var(--color-purple-dark)]">
+                Atendimento direto da nossa loja climatizada
+              </p>
+              <p className="mt-1 text-[13px] leading-[1.5] text-[var(--color-black)]/72">
+                Preencha seus dados rápidos abaixo e conte o que deseja pedir ou
+                consultar hoje para falarmos no WhatsApp.
+              </p>
             </div>
-
-            {items.length === 0 ? (
-              <div className="rounded-[var(--radius-md)] bg-[var(--color-cream)] border border-[var(--color-purple)]/12 p-5 text-center">
-                <p className="text-[14.5px] font-semibold text-[var(--color-black)]">
-                  Sua lista ainda está vazia
-                </p>
-                <p className="mt-1 text-[13px] text-[var(--color-black)]/70">
-                  Selecione suas opções fresquinhas no catálogo ou preencha seus
-                  dados abaixo para falar direto com a loja no WhatsApp.
-                </p>
+          ) : (
+            <div>
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <h3 className="text-[13px] font-bold uppercase tracking-[0.08em] text-[var(--color-purple-dark)]">
+                  Itens selecionados
+                </h3>
+                {onClearOrder && (
+                  <button
+                    type="button"
+                    onClick={onClearOrder}
+                    className="text-[12.5px] font-semibold text-[var(--color-red)] hover:underline cursor-pointer min-h-[36px] px-1"
+                  >
+                    Limpar lista
+                  </button>
+                )}
               </div>
-            ) : (
+
               <ul className="space-y-3" data-testid="drawer-item-list">
                 {items.map(({ product, quantity }) => (
                   <li
@@ -202,40 +201,44 @@ export const WhatsAppOrderDrawer: React.FC<WhatsAppOrderDrawerProps> = ({
                     </div>
 
                     <div className="flex items-center gap-1 shrink-0">
-                      <button
-                        type="button"
-                        onClick={() => onUpdateQuantity(product.id, -1)}
-                        aria-label={`Remover uma unidade de ${product.name}`}
-                        className="min-w-[34px] min-h-[34px] rounded-[var(--radius-sm)] bg-[var(--color-cream)] hover:bg-[var(--color-purple)]/12 inline-flex items-center justify-center cursor-pointer"
-                      >
-                        <Minus className="w-3.5 h-3.5" aria-hidden="true" />
-                      </button>
+                      {onUpdateQuantity && (
+                        <button
+                          type="button"
+                          onClick={() => onUpdateQuantity(product.id, -1)}
+                          aria-label={`Remover uma unidade de ${product.name}`}
+                          className="min-w-[34px] min-h-[34px] rounded-[var(--radius-sm)] bg-[var(--color-cream)] hover:bg-[var(--color-purple)]/12 inline-flex items-center justify-center cursor-pointer"
+                        >
+                          <Minus className="w-3.5 h-3.5" aria-hidden="true" />
+                        </button>
+                      )}
                       <span className="w-7 text-center text-[13.5px] font-bold tabular-nums">
                         {quantity}
                       </span>
-                      <button
-                        type="button"
-                        onClick={() => onUpdateQuantity(product.id, 1)}
-                        aria-label={`Adicionar mais uma unidade de ${product.name}`}
-                        className="min-w-[34px] min-h-[34px] rounded-[var(--radius-sm)] bg-[var(--color-cream)] hover:bg-[var(--color-purple)]/12 inline-flex items-center justify-center cursor-pointer"
-                      >
-                        <Plus className="w-3.5 h-3.5" aria-hidden="true" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => onRemoveItem(product.id)}
-                        aria-label={`Excluir ${product.name} da lista`}
-                        className="min-w-[34px] min-h-[34px] rounded-[var(--radius-sm)] text-[var(--color-red)] hover:bg-[var(--color-red)]/10 inline-flex items-center justify-center cursor-pointer ml-1"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
-                      </button>
+                      {onUpdateQuantity && (
+                        <button
+                          type="button"
+                          onClick={() => onUpdateQuantity(product.id, 1)}
+                          aria-label={`Adicionar mais uma unidade de ${product.name}`}
+                          className="min-w-[34px] min-h-[34px] rounded-[var(--radius-sm)] bg-[var(--color-cream)] hover:bg-[var(--color-purple)]/12 inline-flex items-center justify-center cursor-pointer"
+                        >
+                          <Plus className="w-3.5 h-3.5" aria-hidden="true" />
+                        </button>
+                      )}
+                      {onRemoveItem && (
+                        <button
+                          type="button"
+                          onClick={() => onRemoveItem(product.id)}
+                          aria-label={`Excluir ${product.name} da lista`}
+                          className="min-w-[34px] min-h-[34px] rounded-[var(--radius-sm)] text-[var(--color-red)] hover:bg-[var(--color-red)]/10 inline-flex items-center justify-center cursor-pointer ml-1"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+                        </button>
+                      )}
                     </div>
                   </li>
                 ))}
               </ul>
-            )}
 
-            {items.length > 0 && (
               <div className="mt-4 pt-3 border-t border-[var(--color-purple)]/12">
                 <div className="flex items-center justify-between">
                   <span className="text-[14px] font-semibold text-[var(--color-black)]/75">
@@ -253,8 +256,8 @@ export const WhatsAppOrderDrawer: React.FC<WhatsAppOrderDrawerProps> = ({
                   diretamente no WhatsApp.
                 </p>
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Customer Details & Validation Form */}
           <form onSubmit={handlePrepareOrder} noValidate className="space-y-4">
@@ -358,17 +361,17 @@ export const WhatsAppOrderDrawer: React.FC<WhatsAppOrderDrawerProps> = ({
                 htmlFor="customer-notes"
                 className="block text-[13.5px] font-semibold text-[var(--color-black)] mb-1.5"
               >
-                Preferências de maturação (opcional)
+                O que gostaria de pedir ou consultar? (opcional)
               </label>
-              <input
+              <textarea
                 id="customer-notes"
-                type="text"
+                rows={3}
                 value={form.notes}
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, notes: e.target.value }))
                 }
-                placeholder="Ex.: Banana mais verdinha, melancia bem doce..."
-                className="w-full min-h-[44px] px-3.5 rounded-[var(--radius-md)] bg-[var(--color-white)] border border-[var(--color-purple)]/20 text-[14.5px] text-[var(--color-black)] focus:outline-none focus:border-[var(--color-purple)]"
+                placeholder="Ex.: Melancia doce, banana prata mais verdinha, alface hidropônica..."
+                className="w-full py-2.5 px-3.5 rounded-[var(--radius-md)] bg-[var(--color-white)] border border-[var(--color-purple)]/20 text-[14.5px] text-[var(--color-black)] focus:outline-none focus:border-[var(--color-purple)] resize-none"
               />
             </div>
 

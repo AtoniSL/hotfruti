@@ -162,39 +162,3 @@ export const ScrollProgressBar: React.FC = () => {
     />
   );
 };
-
-const MARQUEE_ITEMS = [
-  'AMBIENTE CLIMATIZADO',
-  'FRUTAS DA ESTAÇÃO',
-  'LEGUMES SELECIONADOS',
-  'FOLHAS HIDROPÔNICAS',
-  'PLANTAS & FLORES',
-  'QUARTA E SÁBADO DE OFERTAS',
-  'ATENDIMENTO PELO WHATSAPP',
-  'GUARAPARI · ES',
-];
-
-export const ProduceMarquee: React.FC = () => {
-  return (
-    <div
-      aria-hidden="true"
-      className="marquee-wrapper overflow-hidden bg-[var(--color-purple-dark)] border-y border-white/10 py-3.5 select-none"
-    >
-      <div className="marquee-track">
-        {[0, 1].map((dup) => (
-          <div key={dup} className="flex items-center shrink-0">
-            {MARQUEE_ITEMS.map((label) => (
-              <span
-                key={`${dup}-${label}`}
-                className="inline-flex items-center gap-5 px-5 font-display text-[15px] sm:text-[16px] tracking-[0.12em] uppercase text-[var(--color-cream)] whitespace-nowrap"
-              >
-                <span>{label}</span>
-                <span className="text-[var(--color-yellow)] text-xs">✦</span>
-              </span>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};

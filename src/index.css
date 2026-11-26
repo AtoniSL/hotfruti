@@ -76,6 +76,26 @@
   }
 }
 
+/* Soft edge mask for continuous infinite showcase carousel */
+@media (min-width: 1024px) {
+  .carousel-edge-fade {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 3.5%,
+      #000 96.5%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 3.5%,
+      #000 96.5%,
+      transparent 100%
+    );
+  }
+}
+
 .hero-gradient {
   background: linear-gradient(
     135deg,
@@ -201,27 +221,6 @@
   }
 }
 
-/* Seamless GPU-composited kinetic marquee */
-.marquee-track {
-  display: flex;
-  width: max-content;
-  will-change: transform;
-  animation: marquee-scroll 42s linear infinite;
-}
-
-.marquee-wrapper:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-@keyframes marquee-scroll {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -238,8 +237,7 @@
   }
   .btn-shine::after,
   .btn-shine-ambient::after,
-  .text-shimmer-gold,
-  .marquee-track {
+  .text-shimmer-gold {
     animation: none;
   }
   .text-shimmer-gold {
